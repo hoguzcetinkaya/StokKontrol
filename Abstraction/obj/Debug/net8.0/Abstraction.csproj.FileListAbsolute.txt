@@ -1,0 +1,11 @@
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\bin\Debug\net8.0\Abstraction.deps.json
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\bin\Debug\net8.0\Abstraction.dll
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\bin\Debug\net8.0\Abstraction.pdb
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\obj\Debug\net8.0\Abstraction.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\obj\Debug\net8.0\Abstraction.AssemblyInfoInputs.cache
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\obj\Debug\net8.0\Abstraction.AssemblyInfo.cs
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\obj\Debug\net8.0\Abstraction.csproj.CoreCompileInputs.cache
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\obj\Debug\net8.0\Abstraction.dll
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\obj\Debug\net8.0\refint\Abstraction.dll
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\obj\Debug\net8.0\Abstraction.pdb
+C:\Users\ouz\source\repos\StokKontrol\Abstraction\obj\Debug\net8.0\ref\Abstraction.dll

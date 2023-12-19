@@ -1,0 +1,7 @@
+C:\Users\ouz\source\repos\StokKontrol\ProductService\obj\Debug\net7.0\ProductService.csproj.AssemblyReference.cache
+C:\Users\ouz\source\repos\StokKontrol\ProductService\obj\Debug\net7.0\ProductService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ouz\source\repos\StokKontrol\ProductService\obj\Debug\net7.0\ProductService.AssemblyInfoInputs.cache
+C:\Users\ouz\source\repos\StokKontrol\ProductService\obj\Debug\net7.0\ProductService.AssemblyInfo.cs
+C:\Users\ouz\source\repos\StokKontrol\ProductService\obj\Debug\net7.0\ProductService.csproj.CoreCompileInputs.cache
+C:\Users\ouz\source\repos\StokKontrol\ProductService\obj\Debug\net7.0\ProductService.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\ouz\source\repos\StokKontrol\ProductService\obj\Debug\net7.0\ProductService.MvcApplicationPartsAssemblyInfo.cache

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "cmTieIHMEdcXEiOL1NwEzJthPIvNRI4wlAliIBDPKIs=",
+  "Source": "SupplierService",
+  "BasePath": "_content/SupplierService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,15 @@
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\bin\Debug\net7.0\StokKontrol.Data.deps.json
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\bin\Debug\net7.0\StokKontrol.Data.dll
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\bin\Debug\net7.0\StokKontrol.Data.pdb
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\bin\Debug\net7.0\Abstraction.dll
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\bin\Debug\net7.0\Abstraction.pdb
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\StokKontrol.Data.csproj.AssemblyReference.cache
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\StokKontrol.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\StokKontrol.Data.AssemblyInfoInputs.cache
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\StokKontrol.Data.AssemblyInfo.cs
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\StokKontrol.Data.csproj.CoreCompileInputs.cache
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\StokKontrol.Data.csproj.CopyComplete
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\StokKontrol.Data.dll
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\refint\StokKontrol.Data.dll
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\StokKontrol.Data.pdb
+C:\Users\ouz\source\repos\StokKontrol\StokKontrol.Data\obj\Debug\net7.0\ref\StokKontrol.Data.dll

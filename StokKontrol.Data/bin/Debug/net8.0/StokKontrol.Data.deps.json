@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "StokKontrol.Data/1.0.0": {
+        "dependencies": {
+          "Abstraction": "1.0.0"
+        },
+        "runtime": {
+          "StokKontrol.Data.dll": {}
+        }
+      },
+      "Abstraction/1.0.0": {
+        "runtime": {
+          "Abstraction.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "StokKontrol.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Abstraction/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
