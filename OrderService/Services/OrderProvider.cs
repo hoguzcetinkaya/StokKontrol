@@ -12,15 +12,15 @@ namespace OrderService.Services
         public async Task<GetVM> GetAsync(int id)
         {
 
-            Order? order = await dbContext.Orders.AsNoTracking().FirstOrDefaultAsync(x=> x.Id == id);
+            Order? order = await dbContext.Orders.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             //List<Product> products = await dbContext.Products.Where(x => ids.Contains(x.Id)).AsNoTracking().ToListAsync();
-            var products = dbContext.Products.AsNoTracking().Where(x=> order.ProductIds.Contains(x.Id)).Select(x=> new
+            var products = dbContext.Products.AsNoTracking().Where(x => order.ProductIds.Contains(x.Id)).Select(x => new
             {
                 Id = x.Id,
                 Name = x.Name,
             }).ToList();
 
-            IEnumerable<string> yyy = products.Select(x=> x.Name);
+            IEnumerable<string> yyy = products.Select(x => x.Name);
 
             string orderProducts = string.Join(',', yyy);
 
@@ -29,7 +29,7 @@ namespace OrderService.Services
             if (order is null) throw new Exception($"{id} not found");
 
             return dbContext.Orders.AsNoTracking()
-                .Select(x=> new GetVM
+                .Select(x => new GetVM
                 {
                     Name = x.Name,
                     Description = x.Description,
@@ -42,18 +42,34 @@ namespace OrderService.Services
         }
         public async Task<IEnumerable<GetVM>> GetAllAsync()
         {
-            List<GetVM> orders = await dbContext.Orders.AsNoTracking()
-                .Select(x => new GetVM
-                {
-                    Name = x.Name,
-                    Price = x.Price,
-                    Description = x.Description,
-                    Quantity = x.Quantity,
-                    CustomerName = x.Customer!.Name
+            List<Product> products = await dbContext.Products.ToListAsync();
 
-                }).ToListAsync();
+            //var orderProducts = orders.Join(products, o => o.ProductIds, p => p.Id, (o, p) => new GetVM
+            //{ 
+            //    Name = o.Name,
+            //    Description = o.Description,
+            //    Price = o.Price,
+            //    Quantity = o.Quantity,
+            //    CustomerName = o.Customer!.Name,
+            //    ProductsName = p.Name
 
-            return orders;
+            //});
+            // Önce tüm siparişleri ve ilişkili müşterileri hafızaya al
+            List<Order> ordersWithCustomers = dbContext.Orders.Include(o => o.Customer).AsNoTracking().ToList();
+
+            // Ardından ürün isimlerini hafızada işle
+            var viewModelList = ordersWithCustomers.Select(x => new GetVM
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Price = x.Price,
+                Quantity = x.Quantity,
+                CustomerName = x.Customer != null ? x.Customer.Name : string.Empty,
+                ProductsName = x.ProductIds != null ? string.Join(',', products.Where(p => x.ProductIds.Contains(p.Id)).Select(p => p.Name)) : string.Empty
+            }).ToList();
+
+            return viewModelList;
+
         }
 
         public async Task<Order> CreateAsync(CreateOrderDTO createOrderDTO)
@@ -95,6 +111,6 @@ namespace OrderService.Services
         }
 
 
-        
+
     }
 }

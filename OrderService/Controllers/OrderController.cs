@@ -6,6 +6,8 @@ using StokKontrol.Data;
 
 namespace OrderService.Controllers
 {
+    [ApiController]
+    [Route("[Controller]")]
     public class OrderController(IOrderService orderService) : Controller
     {
         [HttpGet(nameof(Get))]

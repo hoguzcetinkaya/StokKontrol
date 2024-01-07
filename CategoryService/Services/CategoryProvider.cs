@@ -58,10 +58,39 @@ namespace CategoryService.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            Category? category = await dbContext.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-            dbContext.Categories.Remove(category);
-            await dbContext.SaveChangesAsync();
-            return true;
+
+            //var category = await dbContext.Categories.Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
+            //if (category != null)
+            //{
+                //dbContext.Products.RemoveRange(category.Products); // İlişkili ürünleri sil
+                //dbContext.Categories.Remove(category);             // Kategoriyi sil
+                //await dbContext.SaveChangesAsync();
+            //}
+
+            using (var transaction = dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var productsToDelete = dbContext.Products.Where(p => p.CategoryId == id);
+                    dbContext.Products.RemoveRange(productsToDelete);
+                    var categoryToDelete = dbContext.Categories.Find(id);
+                    dbContext.Categories.Remove(categoryToDelete);
+
+                    await dbContext.SaveChangesAsync();
+                    transaction.Commit();
+                    return true;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                    // Hata işleme
+                }
+            }
+            //Category? category = await dbContext.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            //dbContext.Categories.Remove(category);
+            //await dbContext.SaveChangesAsync();
+            //return true;
         }
 
         public async Task<bool> DeleteManyAsync(IEnumerable<int> ids)

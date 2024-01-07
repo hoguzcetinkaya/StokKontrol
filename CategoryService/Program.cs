@@ -28,6 +28,11 @@ namespace CategoryService
 
             app.UseAuthorization();
 
+            app.UseCors(x => x
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                              .SetIsOriginAllowed(origin => true)
+                              .WithOrigins("https://localhost:7053"));
 
             app.MapControllers();
 

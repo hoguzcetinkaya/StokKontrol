@@ -72,10 +72,26 @@ namespace CustomerService.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            Customer? customer = await dbContext.Customers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-            dbContext.Customers.Remove(customer);
-            await dbContext.SaveChangesAsync();
-            return true;
+            using (var transaction = dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var ordersToDelete = dbContext.Orders.Where(p => p.CustomerId == id);
+                    dbContext.Orders.RemoveRange(ordersToDelete);
+                    var customerToDelete = dbContext.Customers.Find(id);
+                    dbContext.Customers.Remove(customerToDelete);
+
+                    await dbContext.SaveChangesAsync();
+                    transaction.Commit();
+                    return true;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                    // Hata işleme
+                }
+            }
         }
         public async Task<bool> DeleteManyAsync(IEnumerable<int> ids)
         {

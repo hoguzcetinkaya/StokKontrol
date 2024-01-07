@@ -34,9 +34,11 @@ namespace ProductService.Services
         }
         public async Task<IEnumerable<GetVM>> GetAllAsync()
         {
+            var p = await dbContext.Products.ToListAsync();
             IEnumerable<GetVM> products = await dbContext.Products.AsNoTracking()
                 .Select(x => new GetVM
                 {
+                    Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
                     Price = x.Price,
@@ -49,14 +51,33 @@ namespace ProductService.Services
             return products;
         }
 
-        public async Task<Product> CreateAsync(CreateProductDTO createProductDTO)
+        public async Task<GetVM> CreateAsync(CreateProductDTO createProductDTO)
         {
             Product product = Converter.GetInstance().Convert(createProductDTO);
             bool isCategoryValid = await dbContext.Categories.AnyAsync(c => c.Id == product.CategoryId);
             bool isSupplierValid = await dbContext.Suppliers.AnyAsync(s => s.Id == product.SupplierId);
+
+            
+
             await dbContext.AddAsync(product);
             await dbContext.SaveChangesAsync();
-            return product;
+
+            var productVM = await dbContext.Products.AsNoTracking()
+                .Where(x => x.Id == product.Id) // FirstOrDefault yerine Where kullanmamızın sebebi. Select kullanmak için yapının IQueryable türünde olması gerekliymiş.
+                                                // Select için db'ye gidip gelmemek gerekliymiş. Db'ye gitmeden kullanılır ki db'den çekilecek dataları ona göre ayarlasın
+                .Select(x => new GetVM
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Price = x.Price,
+                    StockQuantity = x.StockQuantity,
+                    CategoryName = x.Category.Name,
+                    SupplierName = x.Supplier.Name,
+
+                }).FirstOrDefaultAsync();
+
+            return productVM;
         }
 
         public async Task<IEnumerable<Product>> CreateManyAsync([FromBody] IEnumerable<CreateProductDTO> createProductDTOs)
@@ -80,6 +101,7 @@ namespace ProductService.Services
 
             GetVM getVM = new GetVM
             {
+                Id             = newProduct.Id           ,
                 Name           = newProduct.Name         ,
                 Price          = newProduct.Price        ,
                 Description    = newProduct.Description  ,
@@ -115,13 +137,43 @@ namespace ProductService.Services
         }
         public async Task<bool> DeleteAsync(int id)
         {
-            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry x = dbContext.Remove(id);
-            if(x.State== EntityState.Deleted)
+            //var category = await dbContext.Categories.Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
+            //if (category != null)
+            //{
+            //dbContext.Products.RemoveRange(category.Products); // İlişkili ürünleri sil
+            //dbContext.Categories.Remove(category);             // Kategoriyi sil
+            //await dbContext.SaveChangesAsync();
+            //}
+
+            using (var transaction = dbContext.Database.BeginTransaction())
             {
-                await dbContext.SaveChangesAsync();
-                return true;
+                try
+                {
+                    var productToDelete = dbContext.Products.Find(id);
+                    Order? ordersToDelete = await dbContext.Orders.Where(p => p.ProductIds.Contains(id)).FirstOrDefaultAsync();
+                    if(ordersToDelete is not null)
+                    {
+                        dbContext.Orders.RemoveRange(ordersToDelete);
+                        dbContext.Products.Remove(productToDelete);
+                        await dbContext.SaveChangesAsync();
+                        transaction.Commit();
+                        return true;
+                    }
+                    else
+                    {
+                        dbContext.Products.Remove(productToDelete);
+                        await dbContext.SaveChangesAsync();
+                        transaction.Commit();
+                        return true;
+                    }
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                    // Hata işleme
+                }
             }
-            return false;
         }
 
         public async Task<bool> DeleteManyAsync([FromBody] IEnumerable<int> ids)

@@ -28,7 +28,11 @@ namespace OrderService
 
             app.UseAuthorization();
 
-
+            app.UseCors(x => x
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .SetIsOriginAllowed(origin => true)
+                          .WithOrigins("https://localhost:7126"));
             app.MapControllers();
 
             app.Run();

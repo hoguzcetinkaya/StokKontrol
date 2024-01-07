@@ -2748,19 +2748,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ouz\\.nuget\\packages\\": {}
+    "C:\\Users\\oguz.cetinkaya\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ouz\\source\\repos\\StokKontrol\\CategoryService\\CategoryService.csproj",
+      "projectUniqueName": "C:\\Users\\oguz.cetinkaya\\source\\StokKontrol\\CategoryService\\CategoryService.csproj",
       "projectName": "CategoryService",
-      "projectPath": "C:\\Users\\ouz\\source\\repos\\StokKontrol\\CategoryService\\CategoryService.csproj",
-      "packagesPath": "C:\\Users\\ouz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ouz\\source\\repos\\StokKontrol\\CategoryService\\obj\\",
+      "projectPath": "C:\\Users\\oguz.cetinkaya\\source\\StokKontrol\\CategoryService\\CategoryService.csproj",
+      "packagesPath": "C:\\Users\\oguz.cetinkaya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\oguz.cetinkaya\\source\\StokKontrol\\CategoryService\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ouz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\oguz.cetinkaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2768,17 +2773,19 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://pkgs.dev.azure.com/btyonoptimatesolutions/Optimate/_packaging/optimate-packages/nuget/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\ouz\\source\\repos\\StokKontrol\\Abstraction\\Abstraction.csproj": {
-              "projectPath": "C:\\Users\\ouz\\source\\repos\\StokKontrol\\Abstraction\\Abstraction.csproj"
+            "C:\\Users\\oguz.cetinkaya\\source\\StokKontrol\\Abstraction\\Abstraction.csproj": {
+              "projectPath": "C:\\Users\\oguz.cetinkaya\\source\\StokKontrol\\Abstraction\\Abstraction.csproj"
             },
-            "C:\\Users\\ouz\\source\\repos\\StokKontrol\\StokKontrol.Data\\StokKontrol.Data.csproj": {
-              "projectPath": "C:\\Users\\ouz\\source\\repos\\StokKontrol\\StokKontrol.Data\\StokKontrol.Data.csproj"
+            "C:\\Users\\oguz.cetinkaya\\source\\StokKontrol\\StokKontrol.Data\\StokKontrol.Data.csproj": {
+              "projectPath": "C:\\Users\\oguz.cetinkaya\\source\\StokKontrol\\StokKontrol.Data\\StokKontrol.Data.csproj"
             }
           }
         }

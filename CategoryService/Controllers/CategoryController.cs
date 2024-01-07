@@ -6,22 +6,22 @@ using StokKontrol.Data;
 namespace CategoryService.Controllers
 {
     [ApiController]
-    [Route("controller")]
+    [Route("[Controller]")]
     public class CategoryController(ICategoryService categoryService) : Controller
     {
         private readonly ICategoryService categoryService = categoryService;
 
-        [HttpGet("GetAll")]
+        [HttpGet(nameof(GetAll))]
         public async Task<IEnumerable<Category>> GetAll()
         {
             return await categoryService.GetAllAsync();
         }
-        [HttpGet("Get")]
+        [HttpGet(nameof(Get))]
         public async Task<Category> Get(int id)
         {
             return await categoryService.GetAsync(id);
         }
-        [HttpPost("Create")]
+        [HttpPost(nameof(Create))]
         public async Task<Category> Create(CreateCategoryDTO createCategoryDTO)
         {
             if (!ModelState.IsValid)
@@ -30,7 +30,7 @@ namespace CategoryService.Controllers
             return await categoryService.CreateAsync(createCategoryDTO);
         }
 
-        [HttpPost("CreateMany")]
+        [HttpPost(nameof(CreateMany))]
         public async Task<IEnumerable<Category>> CreateMany(IEnumerable<CreateCategoryDTO> createCategoryDTOs)
         {
             if (!ModelState.IsValid)
@@ -39,7 +39,7 @@ namespace CategoryService.Controllers
             return await categoryService.CreateManyAsync(createCategoryDTOs);
         }
 
-        [HttpPut("Update")]
+        [HttpPut(nameof(Update))]
         public async Task<Category> Update(UpdateCategoryDTO updateCategoryDTO)
         {
             if (!ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace CategoryService.Controllers
 
             return await categoryService.UpdateAsync(updateCategoryDTO);
         }
-        [HttpPut("UpdateMany")]
+        [HttpPut(nameof(UpdateMany))]
         public async Task<IEnumerable<Category>> UpdateMany(IEnumerable<UpdateCategoryDTO> updateCategoryDTOs)
         {
             if (!ModelState.IsValid)
@@ -55,12 +55,12 @@ namespace CategoryService.Controllers
 
             return await categoryService.UpdateManyAsync(updateCategoryDTOs);
         }
-        [HttpDelete("Delete")]
+        [HttpDelete("Delete/{id}")]
         public async Task<bool> Delete(int id)
         {
             return await categoryService.DeleteAsync(id);
         }
-        [HttpDelete("DeleteMany")]
+        [HttpDelete(nameof(DeleteMany))]
         public async Task<bool> DeleteMany(IEnumerable<int> ids)
         {
             return await categoryService.DeleteManyAsync(ids);

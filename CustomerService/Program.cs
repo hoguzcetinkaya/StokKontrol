@@ -29,7 +29,11 @@ namespace CustomerService
 
             app.UseAuthorization();
 
-
+            app.UseCors(x => x
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                              .SetIsOriginAllowed(origin => true)
+                              .WithOrigins("https://localhost:7012"));
             app.MapControllers();
 
             app.Run();

@@ -8,21 +8,21 @@ namespace SupplierService.Services
 {
     public class SupplierProvider(StokDbContext dbContext) : ISupplierService
     {
-        public async Task<Supplier> GetAsync(int id)
+        public async Task<Supplier> Get(int id)
         {
             Supplier? supplier = await dbContext.Suppliers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id)!;
 
             if (supplier is null) throw new Exception("Supplier Not Found");
             return supplier;
         }
-        public async Task<IEnumerable<Supplier>> GetAllAsync()
+        public async Task<IEnumerable<Supplier>> GetAll()
         {
             List<Supplier> suppliers = await dbContext.Suppliers.AsNoTracking().ToListAsync();
             if (suppliers is null) throw new Exception("Suppliers is empty");
             return suppliers;
 
         }
-        public async Task<Supplier> CreateAsync(CreateSupplierDTO createSupplierDTO)
+        public async Task<Supplier> Create(CreateSupplierDTO createSupplierDTO)
         {
             Supplier supplier = Converter.GetInstance().Convert(createSupplierDTO);
 
@@ -31,7 +31,7 @@ namespace SupplierService.Services
             return supplier;
         }
 
-        public async Task<IEnumerable<Supplier>> CreateManyAsync(IEnumerable<CreateSupplierDTO> createSupplierDTOs)
+        public async Task<IEnumerable<Supplier>> CreateMany(IEnumerable<CreateSupplierDTO> createSupplierDTOs)
         {
             IEnumerable<Supplier> suppliers = Converter.GetInstance().Convert(createSupplierDTOs);
 
@@ -40,7 +40,7 @@ namespace SupplierService.Services
 
             return suppliers;
         }
-        public async Task<Supplier> UpdateAsync(UpdateSupplierDTO updateSuplierDTO)
+        public async Task<Supplier> Update(UpdateSupplierDTO updateSuplierDTO)
         {
             Supplier? supplier = await dbContext.Suppliers.FirstOrDefaultAsync(x => x.Id == updateSuplierDTO.Id);
             if(supplier is null) { throw new Exception(nameof(updateSuplierDTO)); }
@@ -51,7 +51,7 @@ namespace SupplierService.Services
             return updatedSupplier;
         }
 
-        public async Task<IEnumerable<Supplier>> UpdateManyAsync(IEnumerable<UpdateSupplierDTO> updateSuplierDTOs)
+        public async Task<IEnumerable<Supplier>> UpdateMany(IEnumerable<UpdateSupplierDTO> updateSuplierDTOs)
         {
             IEnumerable<Supplier>? suppliers = await dbContext.Suppliers.ToListAsync();
             if(!suppliers.Any()) throw new Exception("Güncellenecek müşteri bulunamadı.");
@@ -62,18 +62,31 @@ namespace SupplierService.Services
             await dbContext.SaveChangesAsync();
             return updatedSuppliers;
         }
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> Delete(int id)
         {
-            Supplier? supplier = await dbContext.Suppliers.FirstOrDefaultAsync(x => x.Id == id);
+            using (var transaction = dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var productsToDelete = dbContext.Products.Where(p => p.SupplierId == id);
+                    dbContext.Products.RemoveRange(productsToDelete);
+                    var categoryToDelete = dbContext.Suppliers.Find(id);
+                    dbContext.Suppliers.Remove(categoryToDelete);
 
-            if (supplier is null) return false;
-
-            dbContext.Suppliers.Remove(supplier);
-            await dbContext.SaveChangesAsync();
-            return true;
+                    await dbContext.SaveChangesAsync();
+                    transaction.Commit();
+                    return true;
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                    // Hata işleme
+                }
+            }
         }
 
-        public async Task<bool> DeleteManyAsync(IEnumerable<int> ids)
+        public async Task<bool> DeleteMany(IEnumerable<int> ids)
         {
             List<Supplier> suppliers = await dbContext.Suppliers.Where(x => ids.Contains(x.Id)).AsNoTracking().ToListAsync();
             if (!suppliers.Any()) return false;

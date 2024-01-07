@@ -30,7 +30,11 @@ namespace SupplierService
 
 
             app.MapControllers();
-
+            app.UseCors(x => x
+                             .AllowAnyMethod()
+                             .AllowAnyHeader()
+                             .SetIsOriginAllowed(origin => true)
+                             .WithOrigins("https://localhost:7291"));
             app.Run();
         }
     }

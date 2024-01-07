@@ -20,8 +20,6 @@ namespace CategoryService.Extensions
             services.AddScoped<ICategoryService, CategoryProvider>();
             return services;
         }
-
-        
     }
     public class StokDbContext : DbContext
     {

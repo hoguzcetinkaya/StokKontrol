@@ -6,7 +6,7 @@ using StokKontrol.Data;
 namespace CustomerService.Controllers
 {
     [ApiController]
-    [Route("controller")]
+    [Route("[Controller]")]
     public class CustomerController : Controller
     {
         private readonly ICustomerService customerService;
@@ -60,7 +60,7 @@ namespace CustomerService.Controllers
             return await customerService.UpdateManyAsync(updateCustomerDTOs);
         }
 
-        [HttpDelete(nameof(Delete))]
+        [HttpDelete("Delete/{id}")]
         public async Task<bool> Delete(int id)
         {
             return await customerService.DeleteAsync(id);
